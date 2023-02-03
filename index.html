@@ -230,7 +230,7 @@
 
     <script>
       var posts = [];
-      
+      // posts = posts.reverse();
       
       // Get modal, new post button and modal close button elements
       const modal = document.querySelector(".modal");
@@ -486,23 +486,39 @@
           }
         }
 
+        // getText() {
+        //   //   posts = [
+        //   // "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        //   // "Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
+        //   // ];
+        //   this.currentIndex = this.currentIndex || 0;
+        //   // Show "Welcome to my website" as very first card
+        //   if (this.currentIndex === 0) {
+        //     this.currentIndex = 1;
+        //     return "Loading...";
+        //   }
+        //   if (this.currentIndex >= posts.length) {
+        //   this.currentIndex = 0;
+        //   }
+          
+        //   return posts[this.currentIndex++];
+        // }
+
+
         getText() {
-          //   posts = [
-          // "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          // "Proin gravida dolor sit amet lacus accumsan et viverra justo commodo.",
-          // ];
           this.currentIndex = this.currentIndex || 0;
           // Show "Welcome to my website" as very first card
           if (this.currentIndex === 0) {
-            this.currentIndex = 1;
+            this.currentIndex = posts.length - 1;
             return "Loading...";
           }
-          if (this.currentIndex >= posts.length) {
-          this.currentIndex = 0;
+          if (this.currentIndex < 0) {
+            this.currentIndex = posts.length - 1;
           }
           
-          return posts[this.currentIndex++];
+          return posts[this.currentIndex--];
         }
+
 
         getRotationAngle(x, y) {
           return x / 10;
@@ -589,7 +605,7 @@ function getText() {
   postsRef.orderByChild("time").once('value', function(snapshot) {
     snapshot.forEach(function(childSnapshot) {
       var childData = childSnapshot.val();
-      posts.unshift(childData.text);
+      posts.push(childData.text);
     });
   
 
@@ -599,7 +615,7 @@ function getText() {
       this.currentIndex = 0;
     }
 
-    console.log(posts[this.currentIndex++]);
+    // console.log(posts[this.currentIndex++]);
   });
 }
 getText();
